@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PanelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+
 });
+Route::get('master',function (){
+    return view('admin.master');
+});
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return redirect()->route('index');
+})->name('dashboard');
+/*Route::get('/cıkış',function (){
+    Auth::logout();
+    return redirect('mes/login');
+})->name('cıkış');
+*/
+Route::get('/',[PanelController::class,'index'])->name('index');
